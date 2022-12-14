@@ -1,0 +1,17 @@
+
+server {
+    listen 80;
+    server_name 0.0.0.0;
+    access_log  /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log;
+    
+    location /static {
+        alias /BacnetWeb/bacnetweb/static;
+    }
+
+    location / {
+        proxy_pass http://localhost:8000;
+        include /etc/nginx/proxy_params;
+        proxy_redirect off;
+    }
+}

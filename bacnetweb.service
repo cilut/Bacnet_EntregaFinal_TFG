@@ -1,0 +1,23 @@
+# ***bacneteweb.service***
+[Unit]
+Description=Servicio que se ocupa de tener ejecutando gunicorn
+After=root.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gunicorn -w 3 run:app
+User=root
+WorkingDirectory=/BacnetWeb
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+Environment="FLASK_APP=__init__.py"
+Environment="FLASK_ENV=development"
+Environment="DATABASE_URL=postgres://tfg:tfg@localhost:5432/tfg"
+Environment="USER_GMAIL=CORREO_QUE_ENVIA_CORREO_RECUPERACION@gmail.com"
+Environment="PASS_GMAIL=CONTRASENIA_CORREO"
+Environment="LC_ALL=C.UTF-8"
+Environment="LANG=C.UTF-8"
+ 
+[Install]
+WantedBy=multi-user.target
